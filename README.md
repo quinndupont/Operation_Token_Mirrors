@@ -45,6 +45,20 @@ The analysis reveals key insights into the network's structure and behavior:
 - **Average Interaction Duration**: 5 days, 1 hour, 6 minutes
 - **Median Interaction Duration**: 10 minutes, 48 seconds
 
+### Address Interactions vs. Net Amount
+
+This visualization examines the relationship between the **contract method used** (represented by the colormap of the nodes), the **log-transformed number of interactions** with the contract, and the **net token balance** for each address.
+
+- **Addresses to the left of the origin (negative values)**: These represent participants who experienced a net loss in tokens. This corresponds to users who were affected by the FBI's "rug pull" operation, losing their token investments.
+- **Addresses to the right of the origin (positive values)**: These are participants who profited by earning token value. These "winners" likely created WETH tokens using the Uniswap contract and sold them before the "rug pull" occurred.
+
+The size of each node reflects the magnitude of the net token amount, while the color indicates the specific contract method used in transactions.
+
+![Address Interactions](address_interactions.png)  
+*Figure*: Visualization of address interactions vs. net token amounts, highlighting winners and losers in Operation Token Mirrors.
+
+For a more detailed exploration, view the [interactive visualization here](address_interactions.html).
+
 ### Pairwise Transaction Analysis
 The total number of unique `(To, From)` pairs is 1,449. Below are the top 10 most frequent pairs:
 | Pair | Distribution | Count |
