@@ -1,0 +1,4 @@
+0x72Ad95C3B65A0da6826b336C104a929D1e676bF3 creates contract 0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c at 2024-05-29 21:05:47 and then creates the NexF token 29 minutes later.
+
+Then created a NexF to Wrapped Ether (WETH) contact on Uniswap (0x19e7Fe8CC2E813589Ce70CF48207e0D50a911d7a)
+
