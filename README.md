@@ -1,12 +1,14 @@
-# Operation Token Mirrors: A Data Science Exploration of FBI Investigations
+# Operation Token Mirrors: A Data Science Exploration of an FBI Investigation
 
-This repository contains a comprehensive data science exploration of the FBI's "Operation Token Mirrors" project, which investigates cryptocurrency transactions and their underlying patterns. This ongoing research informs my next book 'Making New Money: How Autonomous Organizations Produce and Govern Cryptocurrencies.' The analysis leverages statistical methods, time-series analysis, and wavelet decomposition to uncover insights into transaction behaviors, address interactions, and network dynamics. The FBI created a sting website [NexFundAI](https://nexfundai.com/) and Solidity smart contract ([0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c](https://etherscan.io/search?f=0&q=0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c)) to mint tokens.
+This repository contains a comprehensive data science exploration of the FBI's "Operation Token Mirrors" by investigating cryptocurrency transactions and their underlying patterns. In an unprecented move, the FBI created a sting website [NexFundAI](https://nexfundai.com/) and Solidity smart contract ([0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c](https://etherscan.io/search?f=0&q=0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c)) to mint tokens. The sting operation lasted for three months and twenty days at which point the FBI 'rug pulled' the participants and terminated the token.
+
+This ongoing research informs my next book _Making New Money: How Autonomous Organizations Produce and Govern Cryptocurrencies._ The analysis leverages statistical methods, time-series analysis, and wavelet decomposition to uncover insights into transaction behaviors, address interactions, and network dynamics.
 
 ---
 
 ## Overview
 
-The dataset used in this project includes transaction data from the Ethereum blockchain, focusing on the NexF token contract (`0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c`). This repository provides an in-depth analysis of address interactions, transaction patterns, and statistical summaries.
+The dataset used in this project includes transaction data from the Ethereum blockchain (from Etherscan), focusing on the NexF token contract (`0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c`). This repository provides an in-depth analysis of address interactions, transaction patterns, and statistical summaries.
 
 ### Key Files:
 - **`LICENSE`**: License information for the repository.
@@ -24,11 +26,11 @@ The dataset used in this project includes transaction data from the Ethereum blo
 - **`wavelet_decomposition_db4_level8.png`**: Wavelet decomposition visualization.
 
 ### Narrative Summary:
-0x72Ad95C3B65A0da6826b336C104a929D1e676bF3 creates contract 0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c at 2024-05-29 21:05:47 and then creates the NexF token 29 minutes later. This contract appears to have been largely copied from an existing contract but includes numerous methods, including the ability to 'rug pull' by unilaterally removing liquidity and stopping trading.
+0x72Ad95C3B65A0da6826b336C104a929D1e676bF3 created contract 0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c at 2024-05-29 21:05:47 and then created the NexF token 29 minutes later. This contract appears to have been largely copied from an existing contract but includes numerous methods, including the ability to unilaterally remove liquidity from the Uniswap pool and stop trading.
 
-The agent created a NexF to Wrapped Ether (WETH) contact on Uniswap (0x19e7Fe8CC2E813589Ce70CF48207e0D50a911d7a), which participants used extensively.
+The contract funder also created a NexF to Wrapped Ether (WETH) contact on Uniswap (0x19e7Fe8CC2E813589Ce70CF48207e0D50a911d7a), which participants used extensively.
 
-The agent appears to have posted the contract to a Telegram channel where 647 addresses interacted with it. Many of the interactions were initated using Telegram bots (such as Banana Gun and Maestro) and occured very rapidly (within seconds). Many addresses contain associated ENS records and can be easily identified (see early_addresses.csv, which includes a link to the Twitter page of a notable crypto trader).
+The contract funder appears to have posted the contract address to a Telegram channel where 647 addresses interacted with it. Many of the interactions were initated using Telegram bots (such as Banana Gun and Maestro) and occured very rapidly (within seconds). Many addresses contain associated ENS records and can be easily identified (see early_addresses.csv, which includes a link to the Twitter page of a notable crypto trader).
 
 ---
 
@@ -49,8 +51,8 @@ The analysis reveals key insights into the network's structure and behavior:
 
 This visualization examines the relationship between the **contract method used** (represented by the colormap of the nodes), the **log-transformed number of interactions** with the contract, and the **net token balance** for each address.
 
-- **Addresses to the left of the origin (negative values)**: These represent participants who experienced a net loss in tokens. This corresponds to users who were affected by the FBI's "rug pull" operation, losing their token investments.
-- **Addresses to the right of the origin (positive values)**: These are participants who profited by earning token value. These "winners" likely created WETH tokens using the Uniswap contract and sold them before the "rug pull" occurred.
+- **Addresses to the left of the origin (negative values)**: These represent participants who experienced a net loss in tokens. This corresponds to users who were affected by the FBI's "rug pull" operation, who lost their NexF tokens as well as the tokens used in the purchase.
+- **Addresses to the right of the origin (positive values)**: These are participants who profited by earning token value. Most of these "winners" created WETH tokens using the Uniswap contract and sold them before the "rug pull" occurred.
 
 The size of each node reflects the magnitude of the net token amount, while the color indicates the specific contract method used in transactions.
 
