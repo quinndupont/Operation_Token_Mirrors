@@ -45,10 +45,94 @@
     </a>
 
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Operation Token Mirrors: A Data Science Exploration of an FBI Investigation</h1>
-        
-        <!-- Your content goes here -->
-        <p>This is where you'll add your content, including headings, paragraphs, images, and other HTML elements.</p>
+        <h1 id="operation-token-mirrors-a-data-science-exploration-of-an-fbi-investigation">Operation Token Mirrors: A Data Science Exploration of an FBI Investigation</h1>
+        <p>This repository contains a comprehensive data science exploration of the FBI&#39;s &quot;Operation Token Mirrors&quot; by investigating cryptocurrency transactions and their underlying patterns. In an unprecented move, the FBI created a sting website <a href="https://nexfundai.com/">NexFundAI</a> and Solidity smart contract (<a href="https://etherscan.io/search?f=0&amp;q=0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c">0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c</a>) to mint tokens. The sting operation lasted for three months and twenty days at which point the FBI &#39;rug pulled&#39; the participants and terminated the token.</p>
+        <p>This ongoing research informs my next book <em>Making New Money: How Autonomous Organizations Produce and Govern Cryptocurrencies.</em> The analysis leverages statistical methods, time-series analysis, and wavelet decomposition to uncover insights into transaction behaviors, address interactions, and network dynamics.</p>
+        <hr>
+        <h2 id="overview">Overview</h2>
+        <p>The dataset used in this project includes transaction data from the Ethereum blockchain (from Etherscan), focusing on the NexF token contract (<code>0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c</code>). This repository provides an in-depth analysis of address interactions, transaction patterns, and statistical summaries.</p>
+        <h3 id="key-files-">Key Files:</h3>
+        <ul>
+        <li><strong><code>LICENSE</code></strong>: License information for the repository.</li>
+        <li><strong><code>README.md</code></strong>: This documentation file.</li>
+        <li><strong><code>address_interactions.html</code></strong>: Interactive visualization of address interactions.</li>
+        <li><strong><code>address_statistics.csv</code></strong>: Address-level statistics including net amounts and interactions.</li>
+        <li><strong><code>contract_methods_distribution.png</code></strong>: Distribution of contract methods used in transactions.</li>
+        <li><strong><code>daily_net_amount.csv</code></strong>: Daily net amount statistics.</li>
+        <li><strong><code>daily_transactions.csv</code></strong>: Daily transaction counts.</li>
+        <li><strong><code>early_addresses.csv</code></strong>: Early participant addresses in the network.</li>
+        <li><strong><code>export-0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c.csv</code></strong>: Raw transaction data for the NexF token contract.</li>
+        <li><strong><code>fbi_token_mirrors.ipynb</code></strong>: Jupyter Notebook containing the full analysis workflow.</li>
+        <li><strong><code>pair_distribution.png</code></strong>: Visualization of pairwise transaction distributions.</li>
+        <li><strong><code>wavelet_coefficient_distribution_log_scale.png</code></strong>: Wavelet coefficient distribution (log scale).</li>
+        <li><strong><code>wavelet_decomposition_db4_level8.png</code></strong>: Wavelet decomposition visualization.</li>
+        </ul>
+        <h3 id="narrative-summary-">Narrative Summary:</h3>
+        <p>0x72Ad95C3B65A0da6826b336C104a929D1e676bF3 created contract 0x16ca471ae755f8a2cd4ec315a4a7439dcfebe54c at 2024-05-29 21:05:47 and then created the NexF token 29 minutes later. This contract appears to have been largely copied from an existing contract but includes numerous methods, including the ability to unilaterally remove liquidity from the Uniswap pool and stop trading.</p>
+        <p>The contract funder also created a NexF to Wrapped Ether (WETH) contact on Uniswap (0x19e7Fe8CC2E813589Ce70CF48207e0D50a911d7a), which participants used extensively.</p>
+        <p>The contract funder appears to have posted the contract address to a Telegram channel where 647 addresses interacted with it. Many of the interactions were initated using Telegram bots (such as Banana Gun and Maestro) and occured very rapidly (within seconds). Many addresses contain associated ENS records and can be easily identified (see early_addresses.csv, which includes a link to the Twitter page of a notable crypto trader).</p>
+        <hr>
+        <h2 id="results-and-findings">Results and Findings</h2>
+        <h3 id="statistical-summary">Statistical Summary</h3>
+        <p>The analysis reveals key insights into the network&#39;s structure and behavior:</p>
+        <ul>
+        <li><strong>Total Addresses</strong>: 647</li>
+        <li><strong>Total NetAmount</strong>: -3,979,884,068.68</li>
+        <li><strong>Average NetAmount</strong>: -6,151,289.13</li>
+        <li><strong>Total Interactions</strong>: 3,010</li>
+        <li><strong>Average Interactions per Address</strong>: 4.65</li>
+        <li><strong>Unique Methods Used</strong>: 22</li>
+        <li><strong>Average Interaction Duration</strong>: 5 days, 1 hour, 6 minutes</li>
+        <li><strong>Median Interaction Duration</strong>: 10 minutes, 48 seconds</li>
+        </ul>
+        <h3 id="address-interactions-vs-net-amount">Address Interactions vs. Net Amount</h3>
+        <p>This visualization examines the relationship between the <strong>contract method used</strong> (represented by the colormap of the nodes), the <strong>log-transformed number of interactions</strong> with the contract, and the <strong>net token balance</strong> for each address.</p>
+        <ul>
+        <li><strong>Addresses to the left of the origin (negative values)</strong>: These represent participants who experienced a net loss in tokens. This corresponds to users who were affected by the FBI&#39;s &quot;rug pull&quot; operation, who lost their NexF tokens as well as the tokens used in the purchase.</li>
+        <li><strong>Addresses to the right of the origin (positive values)</strong>: These are participants who profited by earning token value. Most of these &quot;winners&quot; created WETH tokens using the Uniswap contract and sold them before the &quot;rug pull&quot; occurred.</li>
+        </ul>
+        <p>The size of each node reflects the magnitude of the net token amount, while the color indicates the specific contract method used in transactions.</p>
+        <p><img src="address_interactions.png" alt="Address Interactions"><br><em>Figure</em>: Visualization of address interactions vs. net token amounts, highlighting winners and losers in Operation Token Mirrors.</p>
+        <p>For a more detailed exploration, view the <a href="address_interactions.html">interactive visualization here</a>.</p>
+        <h3 id="pairwise-transaction-analysis">Pairwise Transaction Analysis</h3>
+        <p>The total number of unique <code>(To, From)</code> pairs is 1,449. Below are the top 10 most frequent pairs:
+        | Pair | Distribution | Count |
+        |------|--------------|-------|
+        | (&#39;0xe18159438734295bf8611df8ae91323b992a2bc4&#39;, &#39;WETHContract&#39;) | 0.0162 | 42 |
+        | (&#39;WETHContract&#39;, &#39;0x289d4ae72a64ff07cb3d80d5520b55ec04ec2aa9&#39;) | 0.0158 | 41 |
+        | (&#39;0x289d4ae72a64ff07cb3d80d5520b55ec04ec2aa9&#39;, &#39;WETHContract&#39;) | 0.0154 | 40 |
+        | (&#39;WETHContract&#39;, &#39;0xe18159438734295bf8611df8ae91323b992a2bc4&#39;) | 0.0135 | 35 |
+        | (&#39;0x1127db41c0dd1ca4a19cc47608bcb111c409f120&#39;, &#39;WETHContract&#39;) | 0.0119 | 31 |
+        | (&#39;WETHContract&#39;, &#39;0x1127db41c0dd1ca4a19cc47608bcb111c409f120&#39;) | 0.0115 | 30 |
+        | (&#39;0x8a5d8700dd19488d964d202e87b0cc85704054db&#39;, &#39;WETHContract&#39;) | 0.0112 | 29 |
+        | (&#39;WETHContract&#39;, &#39;0x8a5d8700dd19488d964d202e87b0cc85704054db&#39;) | 0.0112 | 29 |
+        | (&#39;WETHContract&#39;, &#39;0x76999aed261fc44d04acf027635b96f23eff444e&#39;) | 0.0108 | 28 |
+        | (&#39;0x76999aed261fc44d04acf027635b96f23eff444e&#39;, &#39;WETHContract&#39;) | 0.0100 | 26 |</p>
+        <h3 id="wavelet-analysis">Wavelet Analysis</h3>
+        <p>Wavelet decomposition was applied to analyze transaction time-series data at multiple scales using a Daubechies wavelet (<code>db4</code>) at level 8. This technique helps identify patterns and anomalies in the data.</p>
+        <h4 id="wavelet-analysis-statistics-">Wavelet Analysis Statistics:</h4>
+        <ul>
+        <li><strong>Mean</strong>: 21,493,653,078.87</li>
+        <li><strong>Median</strong>: 0.00</li>
+        <li><strong>Standard Deviation</strong>: 36,160,940,177.08</li>
+        <li><strong>Skewness</strong>: -0.0403 (slightly left-skewed)</li>
+        <li><strong>Kurtosis</strong>: 69.0671 (extremely leptokurtic)</li>
+        <li><strong>Max Absolute Value</strong>: 518,528,559,504.52</li>
+        <li><strong>Total Energy</strong>: $$1.40 \times 10^{24}$$</li>
+        </ul>
+        <p>Wavelets represent signals as a combination of localized basis functions at different scales and positions. This allows for a detailed analysis of both high-frequency (short-term) and low-frequency (long-term) components in time-series data.</p>
+        <hr>
+        <h2 id="visualizations">Visualizations</h2>
+        <h3 id="pairwise-transaction-distribution">Pairwise Transaction Distribution</h3>
+        <p><img src="pair_distribution.png" alt="Pair Distribution"><br><em>Figure</em>: Distribution of pairwise <code>(To, From)</code> transactions across the network.</p>
+        <h3 id="wavelet-coefficient-distribution-log-scale-">Wavelet Coefficient Distribution (Log Scale)</h3>
+        <p><img src="wavelet_coefficient_distribution_log_scale.png" alt="Wavelet Coefficient Distribution (Log Scale)"><br><em>Figure</em>: Log-scaled distribution of wavelet coefficients derived from transaction time-series data.</p>
+        <h3 id="wavelet-decomposition-visualization">Wavelet Decomposition Visualization</h3>
+        <p><img src="wavelet_decomposition_db4_level8.png" alt="Wavelet Decomposition"><br><em>Figure</em>: Wavelet decomposition using Daubechies wavelets (<code>db4</code>) at level 8.</p>
+        <hr>
+        <h2 id="conclusion">Conclusion</h2>
+        <p>This project provides a detailed exploration of blockchain transaction data related to &quot;Operation Token Mirrors.&quot; By leveraging statistical analysis and advanced techniques like wavelets, we uncover meaningful patterns in cryptocurrency transactions.</p>
+
         
     </div>
 
