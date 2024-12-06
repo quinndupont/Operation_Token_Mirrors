@@ -59,7 +59,7 @@ The size of each node reflects the magnitude of the net token amount, while the 
 ![Address Interactions](address_interactions.png)  
 *Figure*: Visualization of address interactions vs. net token amounts, highlighting winners and losers in Operation Token Mirrors.
 
-For a more detailed exploration, view the [interactive visualization here](address_interactions.html).
+For a more detailed exploration, view the [interactive visualization here](https://quinndupont.github.io/Operation_Token_Mirrors/).
 
 ### Pairwise Transaction Analysis
 The total number of unique `(To, From)` pairs is 1,449. Below are the top 10 most frequent pairs:
